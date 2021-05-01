@@ -1,8 +1,7 @@
-#!/usr/bin/env python3.9
+#!/usr/bin/env python3
 
 import argparse
 import os
-
 
 
 def main():
@@ -10,7 +9,7 @@ def main():
     parser.add_argument("-n", metavar = 'Name', help="Repository name", required=True)
     parser.add_argument("-p", metavar = 'Privacy', help= "Enter 'public' for a public repository. The default is private", required=True)
     #parser.add_argument_group()
-    
+
     args = parser.parse_args()
 
     repo_name = args.n
