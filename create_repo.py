@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.9
 
+from pathlib import Path
 import argparse
 import requests
 import json 
@@ -21,8 +22,11 @@ def main():
     privacy_type = args.p
     privacy_type = privacy_type.lower()
     script_dir = os.getcwd()
-    new_git_ignore_path = os.path.join(os.getcwd(),".gitignore") #FIXME: Probably needs to change after i fix directory functionality 
-    print("Path to .gitignore is: %s" % new_git_ignore_path)
+    template_git_ignore_path = os.path.join(os.getcwd(),".gitignore") #FIXME: Probably needs to change after i fix directory functionality 
+    home_dir = str(Path.home())
+    repo_path = "%s/Documents/Projects/%s" % (home_dir,repo_name)
+    project_dir_path = "%s/Documents/Projects" % home_dir
+    print("Path to .gitignore is: %s" % template_git_ignore_path)
 
     
     #Checks if user requested a private or public repository
@@ -34,8 +38,12 @@ def main():
     #TODO: Change this to where the user does not need to have the script in this directory
     #https://stackoverflow.com/questions/4028904/how-to-get-the-home-directory-in-python
     print("Create repo script is located in: %s" % script_dir)
-    os.chdir("..")
-    os.chdir("..")
+  
+    
+    #Creating the repo's directory in the projects folder (even if it doesn't exist)
+    Path(repo_path).mkdir(parents=True, exist_ok=True)
+    os.chdir(project_dir_path)
+
     projects_dir = os.getcwd()
     print("New project repository directory is: %s" % projects_dir)
 
@@ -47,9 +55,8 @@ def main():
         pt = True
 
     #Creating the repo's directory in the Projects folder
-    new_repo_dir = projects_dir + '/' +repo_name
-    print("Making a new directory: %s" % new_repo_dir)
-    os.mkdir(new_repo_dir)
+    new_repo_dir = project_dir_path + '/' +repo_name
+
 
     print("Changing to new directory...")
     os.chdir(new_repo_dir)
@@ -62,7 +69,7 @@ def main():
         fp.write("# %s" % repo_name)
 
     print("Creating the .gitignore file")
-    os.system('cp %s .gitignore' % new_git_ignore_path)
+    os.system('cp %s .gitignore' % template_git_ignore_path)
 
 
     
