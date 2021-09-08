@@ -8,26 +8,25 @@ from pathlib import Path
 from tkinter import filedialog
 from colorama import Fore, Back, Style
 
-# Add your personal acess token here
-# This was a token used for testing. It no longer works :)
-
-# TODO: Create new token
-# TODO: Add file dir structure from serious python
-
 
 def read_cfg():
 
     try:
 
-        with open("test.cfg") as confFile:  # TODO: Change this to setup
+        with open("test.cfg") as confFile:
             str1 = confFile.readline()
-            # str1 = str1.replace(" ", "")
+            str1 = str1.replace(" ", "")
+            str1 = str1.rstrip()
             str1_arr = str1.split("=")
             to_return1 = str1_arr[1]
+            print("Username read in: %s" % to_return1)
 
             str2 = confFile.readline()
+            str2 = str2.replace(" ", "")
+            str2 = str2.rstrip()
             str2_arr = str2.split("=")
             to_return2 = str2_arr[1]
+            print("Token read in: %s" % to_return2)
 
         return to_return1, to_return2
 
@@ -134,7 +133,8 @@ def main():
     os.system('git checkout develop')
 
     print('Adding origin to Github...')
-    link = 'https://github.com/%s/%s.git' % (github_username, repo_name)
+    link = ('https://github.com/%s/%s.git' % (github_username, repo_name))
+    print("LINK IS: %s" % link)
     os.system('git remote add origin ' + link)
 
     # Pushing to remote repos
