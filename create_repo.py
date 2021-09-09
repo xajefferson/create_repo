@@ -13,7 +13,7 @@ def read_cfg():
 
     try:
 
-        with open("test.cfg") as confFile:
+        with open("setup.cfg") as confFile:
             str1 = confFile.readline()
             str1 = str1.replace(" ", "")
             str1 = str1.rstrip()
